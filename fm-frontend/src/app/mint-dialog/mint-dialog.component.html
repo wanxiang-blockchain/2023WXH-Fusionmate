@@ -1,0 +1,11 @@
+<div class="mint-dialog">
+    <h1 style="grid-column-start: span 2;">Mint Assistant</h1>
+    <img *ngIf="assistant.imgURI" [src]="assistant.imgURI">
+    <nz-skeleton-element *ngIf="!assistant.imgURI" nzType="image" [nzActive]="true"></nz-skeleton-element>
+    <nz-timeline [nzPending]="pendingMsg">
+        <nz-timeline-item *ngFor="let item of timelineList;let last = last">
+            <span>{{item}}</span>
+            <a [routerLink]="['/detail',assistant.collectionID]" *ngIf="isMinted && last" mat-dialog-close="true">click to chat with the Assistant!</a>
+        </nz-timeline-item>
+    </nz-timeline>
+</div>

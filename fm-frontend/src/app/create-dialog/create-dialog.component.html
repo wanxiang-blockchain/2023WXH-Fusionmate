@@ -1,0 +1,11 @@
+<div class="create-dialog">
+    <h1 style="grid-column-start: span 2;">Create Assistant</h1>
+    <img *ngIf="imgUrl" [src]="imgUrl">
+    <nz-skeleton-element *ngIf="!imgUrl" nzType="image" [nzActive]="true"></nz-skeleton-element>
+    <nz-timeline [nzPending]="pendingMsg">
+        <nz-timeline-item *ngFor="let item of timelineList;let last = last">
+            <span>{{item}}</span>
+            <!-- <a [routerLink]="['/detail',collectionID]" *ngIf="isCreated && last" mat-dialog-close="true">click to chat with the Assistant!</a> -->
+        </nz-timeline-item>
+    </nz-timeline>
+</div>

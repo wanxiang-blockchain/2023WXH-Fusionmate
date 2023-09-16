@@ -1,0 +1,55 @@
+<div class="detail-wrapper" *ngIf="assistant">
+  <div class="detail">
+    <div class="detail-img" [style]=" 'background: url('+assistant.imgURI +')' "></div>
+    <h2>{{assistant.name}}</h2>
+    <div class="tag-list">
+      <div class="tag-item"><span style="color: #FF521E;">
+          {{(assistant.mintAmount$ |async) || 0}}</span>/{{assistant.maxSupply}}</div>
+      <div class="tag-item" *ngIf="assistant.owned$|async">Owned</div>
+      <div class="tag-item" *ngIf="assistant.isMaker$ |async">Created</div>
+    </div>
+    <p class="desc">{{assistant.description}}</p>
+    <button mat-raised-button class="mint-btn" (click)="harvest($event,assistant)">Harvest</button>
+    <h2 style="margin-top: 1rem;">Text Feed</h2>
+    <div class="text-feed">
+      <img src="/assets/imgs/text_feed.png" style="height:100%;">
+      <div class="dot" style="left:40%;top:30%;transform: scale(1.1);"></div>
+      <div class="dot" style="left:45%;top:5%;transform: scale(0.9);"></div>
+      <div class="dot" style="left:62%;top:10%;transform: scale(0.8);"></div>
+      <div class="dot" style="left:52%;top:22%;transform: scale(0.7);"></div>
+      <!-- <div class="text-feed-item">Text Feed</div>
+      <div class="text-feed-item">Text Feed Text Feed</div>
+      <div class="text-feed-item">Text Feed Text</div>
+      <div class="text-feed-item">Text</div>
+      <div class="text-feed-item">Feed</div> -->
+    </div>
+  </div>
+  <div class="dialog">
+    <h2 style="margin: 1rem 0 0 2rem;">{{assistant.name}}</h2>
+    <div class="talk-field" #talkField>
+      <ng-container *ngFor="let item of msgList">
+        <div *ngIf="item.from == 0" class="bot-msg-wrapper">
+          <div class="bot-img" [style]=" 'background: url('+assistant.imgURI +')' "></div>
+          <div class="bot-name">{{assistant.name}}</div>
+          <div class="bot-word-bubble">{{(item.msg$|async) || "I'm thinking..."}}</div>
+        </div>
+        <div *ngIf="item.from == 1" class="user-msg-wrapper">
+          <div class="user-img"></div>
+          <div class="user-name">You</div>
+          <div class="user-word-bubble">{{item.msg$|async}}</div>
+        </div>
+      </ng-container>
+    </div>
+    <ng-container *ngFor="let owned of [assistant.owned$|async]">
+      <div class="input-field" *ngIf="owned">
+        <input type="text" placeholder="Please speak your mind..." [(ngModel)]="msg">
+        <button mat-fab class="send-btn" color="warn" (click)="sendMsg()"><mat-icon>send</mat-icon></button>
+      </div>
+      <div class="input-field" *ngIf="!owned">
+        <span style="font-size: 1rem;margin:auto;font-weight: bold;">
+          You need to <a (click)="mint($event,assistant)">Mint Assistant</a> first.
+        </span>
+      </div>
+    </ng-container>
+  </div>
+</div>

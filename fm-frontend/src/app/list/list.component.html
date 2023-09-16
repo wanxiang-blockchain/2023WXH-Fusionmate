@@ -1,0 +1,32 @@
+<div class="list-wrapper">
+    <h2 style="color: #EB4C1C;font-weight: bolder;font-size: 2rem;">AI Assistant</h2>
+    <div class="tag-list" *ngIf="{type:type$|async} as typeData">
+        <div class="tag-item" [ngClass]="{'selected-tag-item': typeData.type == undefined}"
+            (click)="filterAssistantList()">All</div>
+        <div class="tag-item" [ngClass]="{'selected-tag-item': typeData.type == '0'}"
+            (click)="filterAssistantList('0')">Web3 Expert</div>
+        <div class="tag-item" [ngClass]="{'selected-tag-item': typeData.type == '1'}"
+            (click)="filterAssistantList('1')">Game Characters</div>
+        <div class="tag-item" [ngClass]="{'selected-tag-item': typeData.type == '2'}"
+            (click)="filterAssistantList('2')">Novel Characters</div>
+        <div class="tag-item" [ngClass]="{'selected-tag-item': typeData.type == '3'}"
+            (click)="filterAssistantList('3')">Celebrities</div>
+        <div class="tag-item" [ngClass]="{'selected-tag-item': typeData.type == '4'}"
+            (click)="filterAssistantList('4')">Anime Girls</div>
+    </div>
+    <div class="card-list">
+        <div class="card" [routerLink]="['/detail',assistant.collectionID]"
+            *ngFor="let assistant of assistantList$ | async as assistantList">
+            <div class="card-img" [style]=" 'background: url('+assistant.imgURI +')' "></div>
+            <h2 class="card-name">{{assistant.name}}</h2>
+            <div class="card-tag-list">
+                <div class="card-tag-item"><span style="color: #FF521E;">
+                        {{(assistant.mintAmount$ |async) || 0}}</span>/{{assistant.maxSupply}}</div>
+                <div class="card-tag-item" *ngIf="assistant.owned$ |async">Owned</div>
+                <div class="card-tag-item" *ngIf="assistant.isMaker$ |async">Created</div>
+            </div>
+            <p class="card-desc">{{assistant.description}}</p>
+            <button mat-stroked-button class="mint-button" (click)="mint($event,assistant)">Mint</button>
+        </div>
+    </div>
+</div>

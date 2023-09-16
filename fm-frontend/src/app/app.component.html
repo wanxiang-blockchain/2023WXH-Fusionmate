@@ -1,0 +1,18 @@
+<div class="header">
+    <div class="logo" routerLink="/">
+        <img src="/assets/imgs/logo.png">
+        <div>FusionMate</div>
+    </div>
+    <div class="search-input">
+        <input type="text" placeholder="Search for AI assistans...">
+    </div>
+    <div class="spacer"></div>
+    <button *ngIf="currentAccount" mat-stroked-button class="wallet-button">{{currentAccount}}</button>
+
+    <button *ngIf="!currentAccount" mat-stroked-button class="wallet-button" (click)="connectWallet()">Connect
+        Wallet</button>
+
+</div>
+<div #routeContainer class="route-container">
+    <router-outlet></router-outlet>
+</div>

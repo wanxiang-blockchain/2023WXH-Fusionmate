@@ -1,0 +1,41 @@
+<div class="create-wrapper">
+    <h1 style="color: #EB4C1C;text-align: center;justify-self: center;">Create AI Assistant</h1>
+    <span class="label">Collection Name*</span>
+    <input type="text" [(ngModel)]="name" required="true">
+    <span class="label">Description</span>
+    <textarea rows="30" [(ngModel)]="description" required="true"></textarea>
+    <span class="label">Derive From</span>
+    <nz-select nzAllowClear nzPlaceHolder="Choose" nzSize='large' [(ngModel)]="derive" [nzBackdrop]="true">
+        <nz-option nzLabel="None"></nz-option>
+        <ng-container *ngFor="let assistant of assistantList$ |async">
+            <nz-option [nzValue]="assistant.collectionID" *ngIf="assistant.owned$ |async"
+                [nzLabel]="assistant.name"></nz-option>
+        </ng-container>
+    </nz-select>
+
+    <span class="label">Type*</span>
+    <nz-select nzAllowClear nzPlaceHolder="Choose" nzSize='large' [(ngModel)]="type" required="true"  [nzBackdrop]="true">
+        <nz-option [nzValue]="assistantType.value" [nzLabel]="assistantType.name"
+            *ngFor="let assistantType of assistantTypeList">
+        </nz-option>
+    </nz-select>
+
+    <span class="label">Replication (Token TotalSupply)*</span>
+    <input type="number" [(ngModel)]="replication" required="true">
+    <span class="label">Mint Cost*</span>
+    <input type="number" [(ngModel)]="mintPrice" required="true">
+    <span class="label">Prompt*</span>
+    <input #promptInput hidden="true" type="file" onclick="this.value=null" (change)="promptInputChange($event)"/>
+    <div class="prompt-field">
+        <textarea rows="30" style="margin-bottom: 0;" [(ngModel)]="prompt" required="true" placeholder="Please paste prompt data.."></textarea>
+        <span style="font-weight: bold;">or</span>
+
+        <div class="upload-prompt-btn" (click)="promptInput.click()">
+            <mat-icon color="primary">upload</mat-icon>
+            <span>Upload</span>
+        </div>
+    </div>
+
+
+    <button mat-raised-button class="create-btn" (click)="create()">Create</button>
+</div>

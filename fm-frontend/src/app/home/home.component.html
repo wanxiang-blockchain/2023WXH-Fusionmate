@@ -1,0 +1,77 @@
+<div class="home-wrapper">
+    <div class="home-desc">
+        <div class="title">
+            <h1>FusionMate is a DAPP platform That</h1>
+            <h1>Provides AI assistant services.</h1>
+        </div>
+        <div class="description">
+            <p>FusionMate is a DAPP platform that provides AI assistant services. The AI assistants on the platform are
+                AI language models in different fields and are also NFT assets based on the ERC-6551 standard.</p>
+        </div>
+        <button mat-stroked-button class="create-ai-button" [routerLink]="['/create']">Create AI Assistant</button>
+        <div class="spacer"></div>
+        <h1 style="font-weight: bold;color: #fff;">AI Assistant</h1>
+        <div class="tab-list" *ngIf="{type:type$|async} as typeData">
+            <div class="tab-item" [ngClass]="{'selected-tab-item': typeData.type == undefined}"
+                (click)="filterAssistantList()">All</div>
+            <div class="tab-item" [ngClass]="{'selected-tab-item': typeData.type == '0'}"
+                (click)="filterAssistantList('0')">Web3 Expert</div>
+            <div class="tab-item" [ngClass]="{'selected-tab-item': typeData.type == '1'}"
+                (click)="filterAssistantList('1')">Game Characters</div>
+            <div class="tab-item" [ngClass]="{'selected-tab-item': typeData.type == '2'}"
+                (click)="filterAssistantList('2')">Novel Characters</div>
+            <div class="tab-item" [ngClass]="{'selected-tab-item': typeData.type == '3'}"
+                (click)="filterAssistantList('3')">Celebrities</div>
+            <div class="tab-item" [ngClass]="{'selected-tab-item': typeData.type == '4'}"
+                (click)="filterAssistantList('4')">Anime Girls</div>
+        </div>
+    </div>
+    <div class="card-list">
+        <div class="card" [routerLink]="['/detail',assistant.collectionID]"
+            *ngFor="let assistant of assistantList$ | async as assistantList">
+            <div class="card-img" [style]=" 'background: url('+assistant.imgURI +')' "></div>
+            <h2 class="card-name">{{assistant.name}}</h2>
+            <div class="card-tag-list">
+                <div class="tag-item"><span style="color: #FF521E;">{{(assistant.mintAmount$ |async) || 0}}</span>/{{assistant.maxSupply}}</div>
+                <div class="tag-item" *ngIf="assistant.owned$ |async">Owned</div>
+                <div class="tag-item" *ngIf="assistant.isMaker$ |async">Created</div>
+            </div>
+            <p class="card-desc">{{assistant.description}}</p>
+            <button mat-stroked-button class="mint-button" (click)="mint($event,assistant)">Mint</button>
+        </div>
+    </div>
+    <div style="width: 100%;display: flex;align-items: center;justify-content: center;">
+        <button mat-raised-button class="see-more-btn" routerLink="/list">See More</button>
+    </div>
+    <div class="footer">
+        <h2>Contact Us</h2>
+        <h2>Resources</h2>
+        <h2>Subscribe for more</h2>
+        <div>
+            <div>Twitter</div>
+            <div>Facebook</div>
+            <div>Discord</div>
+        </div>
+        <div>
+            <div>Help center</div>
+            <div>About us</div>
+        </div>
+        <div>
+            <p>Stay up-to-date with new releases, interviews, events and updates from Oases community.</p>
+            <div style="display: flex;flex-direction: row;">
+                <input class="email-input" type="email">
+                <button mat-stroked-button class="submit-button">Submit</button>
+            </div>
+        </div>
+        <div class="divider" style="grid-column-start: span 3;"></div>
+        <div>
+            Terms of Service
+        </div>
+        <div>
+            Privacy Policy
+        </div>
+        <div style="justify-self: end;">
+            © 2023 FusionMate
+        </div>
+    </div>
+</div>
