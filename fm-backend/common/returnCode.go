@@ -1,0 +1,12 @@
+package common
+
+const (
+	SUCCESS                    = 20000
+	INVALID_PARAM              = 20001
+	CANNOT_ACCESS_TO_RESOURCES = 20002
+	BAD_CREDENTIALS            = 20003
+	AUTH_TOKEN_ERROR           = 20004
+	INTERNAL_ERROR             = 20015
+	EXCEED_FREQUENCY_LIMITS    = 20020
+	API_NOT_IN_SUPPORT_NOW     = 29999
+)

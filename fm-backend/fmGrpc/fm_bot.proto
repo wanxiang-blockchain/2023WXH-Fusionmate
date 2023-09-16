@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package fmGrpc;
+
+option go_package = "github.com/FusionMate/fm-backend/fmGrpc";
+
+// 定义 Service
+service BotService {
+    // 定义函数 Function1，Go服务端处理，Python客户端调用
+    rpc BotCreate(BotCreateRequest) returns (BotCreateReply) {}
+
+    // 定义函数 Function2，Python服务端处理，Go客户端调用
+    rpc TokenVerify(TokenVerifyRequest) returns (TokenVerifyReply) {}
+}
+
+// 定义请求和响应的message类型
+message BotCreateRequest {
+    int64 collectionId = 1;
+    string makerAddress = 2;
+    string prompt = 3;
+}
+
+message BotCreateReply {
+    int32 status = 1;
+}
+
+message TokenVerifyRequest {
+    string token = 1;
+}
+
+message TokenVerifyReply {
+    string userAddress = 1;
+}

@@ -1,0 +1,8 @@
+node_modules/
+.history/
+.idea/
+.vscode/
+artifacts/
+cache/
+.env
+.prettierrc
